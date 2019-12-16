@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboad', function(){
-    return view('admin.dashboad');
+
+//group route of admin
+
+Route::group(['prefix'=>'admin', 'middleware'=>'auth', 'namespace'=>'admin'], function(){
+    Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
 });

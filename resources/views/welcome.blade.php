@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="shortcut icon" href="images/star.png" type="favicon/ico" /> -->
 
-        <title>Mamma's Kitchen</title>
+        <title>Food Ship</title>
 
         <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('frontend/css/font-awesome.min.css')}}">

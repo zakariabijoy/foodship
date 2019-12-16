@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>yield('title')</title>
+    <title>@yield('title')</title>
 
     
 
@@ -29,15 +29,24 @@
        <body class="">
   <div class="wrapper ">
   <!-- sidebar -->
-   @include('layouts.partial.sidebar')
+  @if(Request::is('admin*'))
+    @include('layouts.partial.sidebar')
+  @endif
+   
     <div class="main-panel">
       <!-- Navbar -->
-      @include('layouts.partial.navbar')
+      @if(Request::is('admin*'))
+        @include('layouts.partial.navbar')
+      @endif
+      
       <!-- End Navbar -->
       <!-- content -->
          @yield('content')
       <!-- footer -->
-      @include('layouts.partial.footer')
+      @if(Request::is('admin*'))
+        @include('layouts.partial.footer')
+      @endif
+      
     </div>
   </div>
   <div class="fixed-plugin">
