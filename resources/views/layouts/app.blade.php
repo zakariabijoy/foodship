@@ -341,6 +341,6 @@
 
     });
   </script>
-  @stack('js')
+  @stack('script')
 </body>
 </html>
