@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Slider;
+Use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class SliderController extends Controller
 {
@@ -26,7 +28,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.slider.create');
     }
 
     /**
@@ -37,7 +39,26 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'sub_title' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg'
+        ]);
+
+        $slug= str::slug($request->input('title'));
+        $currentDate= Carbon::now()->toDateString();
+
+        $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$request->file('image')->getClientOriginalExtension();
+
+        $request->file('image')->storeAs('/public/slider', $imageName);
+
+        Slider::create([
+            'title' =>$request->input('title'),
+            'sub_title' =>$request->input('sub_title'),
+            'Image' => $imageName
+        ]);
+
+        return redirect()->route('slider.index')->with('success','new slider is added');
     }
 
     /**

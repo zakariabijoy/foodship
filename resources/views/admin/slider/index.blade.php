@@ -9,8 +9,19 @@
 @section('content')
 <div class="content">
         <div class="container-fluid">
+          <a class="btn btn-info" href="{{route('slider.create')}}">Add Slider</a>
           <div class="row">
             <div class="col-md-12">
+              @if(session('success'))
+                    <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                     {{session('success')}}</span>
+                  </div>
+                @endif
+                
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Slider Table</h4>
