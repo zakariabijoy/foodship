@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Slider;
 Use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -133,8 +134,15 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::destroy($id);
+        $slider = Slider::find($id);
 
+        if(Storage::exists('/public/slider/'.$slider->image)){
+
+            Storage::delete('/public/slider/'.$slider->image);
+
+         }
+
+         $slider->delete();
         
 
         return redirect()->route('slider.index')->with('success','slider is deleted');
