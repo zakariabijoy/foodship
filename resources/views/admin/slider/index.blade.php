@@ -9,7 +9,7 @@
 @section('content')
 <div class="content">
         <div class="container-fluid">
-          <a class="btn btn-info" href="{{route('slider.create')}}">Add Slider</a>
+          <a class="btn btn-primary" href="{{route('slider.create')}}">Add Slider</a>
           <div class="row">
             <div class="col-md-12">
               @if(session('success'))
@@ -50,8 +50,21 @@
                           <td>{{$slider->created_at}}</td>
                           <td>{{$slider->updated_at}}</td>
                           <td> 
-                            <a class="btn btn-info btn-sm" href="{{route('slider.edit',$slider->id)}}">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="{{route('slider.destroy',$slider->id)}}">Delete</a>
+                            <a class="btn btn-info btn-sm" href="{{route('slider.edit',$slider->id)}}"><i class="material-icons">mode_edit</i></a>
+
+                            <form id="delete-form-{{$slider->id}}" action="{{route('slider.destroy',$slider->id)}}" method="post">
+                              @csrf
+                              @method('delete')
+                            </form>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure to delete this?')){
+                              event.preventDefault();
+                              document.getElementById('delete-form-{{$slider->id}}').
+                              submit();
+                            }else{
+                              event.preventDefault();
+                            }">
+                            
+                            <i class="material-icons">delete</i></button>
                           </td>
                         </tr>
                        @endforeach 
