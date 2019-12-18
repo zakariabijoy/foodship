@@ -11,15 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('welcome');
 
 Auth::routes([
     'register'=> false
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 
 //group route of admin
