@@ -37,6 +37,7 @@
                         <th>Image</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        <th>Action</th>
                       </thead>
 
                       <tbody>
@@ -48,6 +49,10 @@
                           <td>{{$slider->image}}</td>
                           <td>{{$slider->created_at}}</td>
                           <td>{{$slider->updated_at}}</td>
+                          <td> 
+                            <a class="btn btn-info btn-sm" href="{{route('slider.edit',$slider->id)}}">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{{route('slider.destroy',$slider->id)}}">Delete</a>
+                          </td>
                         </tr>
                        @endforeach 
                       </tbody>
