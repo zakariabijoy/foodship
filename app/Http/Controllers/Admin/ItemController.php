@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Slider;
-Use Carbon\Carbon;
+use App\Item;
+use App\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class SliderController extends Controller
+
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +20,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::all();
-        return view('admin.slider.index', compact('sliders'));
+        $items = Item::all();
+        return view('admin.item.index', compact('items'));
     }
 
     /**
@@ -29,7 +31,8 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view ('admin.slider.create');
+        $categories = Category::all();
+        return view('admin.item.create', compact('categories'));
     }
 
     /**
@@ -41,25 +44,29 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'sub_title' => 'required',
+            'category' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg'
         ]);
 
-        $slug= str::slug($request->input('title'));
+        $slug= str::slug($request->input('name'));
         $currentDate= Carbon::now()->toDateString();
 
         $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$request->file('image')->getClientOriginalExtension();
 
-        $request->file('image')->storeAs('/public/slider', $imageName);
+        $request->file('image')->storeAs('/public/item', $imageName);
 
-        Slider::create([
-            'title' =>$request->input('title'),
-            'sub_title' =>$request->input('sub_title'),
+        Item::create([
+            'category_id' =>$request->input('category'),
+            'name' =>$request->input('name'),
+            'description'=>$request->input('description'),
+            'price'=>$request->input('price'),
             'image' => $imageName
         ]);
 
-        return redirect()->route('slider.index')->with('success','new slider is added');
+        return redirect()->route('item.index')->with('success','new item is added');
     }
 
     /**
@@ -81,8 +88,11 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $slider = Slider::find($id);
-        return view('admin.slider.edit',compact('slider'));
+        $item = Item::find($id);
+
+        $categories = Category::all();
+
+        return view('admin.item.edit', compact(['item','categories']));
     }
 
     /**
@@ -94,36 +104,43 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $slider = Slider::find($id);
+
+        $item = Item::find($id);
 
         $request->validate([
-            'title' => 'required',
-            'sub_title' => 'required',
+            'category' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
             'image' => 'mimes:png,jpg,jpeg'
         ]);
             if($request->file('image')){
-                $slug= str::slug($request->input('title'));
+                $slug= str::slug($request->input('name'));
                 $currentDate= Carbon::now()->toDateString();
 
                 $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$request->file('image')->getClientOriginalExtension();
 
                 $request->file('image')->storeAs('/public/slider', $imageName);
 
-                $slider->update([
-                    'title' =>$request->input('title'),
-                    'sub_title' =>$request->input('sub_title'),
+                $item->update([
+                    'category_id' =>$request->input('category'),
+                    'name' =>$request->input('name'),
+                    'description' =>$request->input('description'),
+                    'price' =>$request->input('price'),
                     'image' => $imageName
                 ]);
             }else {
-                $slider->update([
-                    'title' =>$request->input('title'),
-                    'sub_title' =>$request->input('sub_title'),
-                    'image' => $slider->image
+                $item->update([
+                    'category_id' =>$request->input('category'),
+                    'name' =>$request->input('name'),
+                    'description' =>$request->input('description'),
+                    'price' =>$request->input('price'),
+                    'image' => $item->image
                 ]);
             }
         
 
-        return redirect()->route('slider.index')->with('success','slider is Updated');
+        return redirect()->route('item.index')->with('success','item is Updated');
     }
 
     /**
@@ -134,17 +151,19 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::find($id);
+        $item = Item::find($id);
+        
 
-        if(Storage::exists('/public/slider/'.$slider->image)){
 
-            Storage::delete('/public/slider/'.$slider->image);
+        if(Storage::exists('/public/item/'.$item->image)){
+
+            Storage::delete('/public/item/'.$item->image);
 
          }
 
-         $slider->delete();
+         $item->delete();
         
 
-        return redirect()->route('slider.index')->with('success','slider is deleted');
+        return redirect()->route('item.index')->with('success','item is deleted');
     }
 }
