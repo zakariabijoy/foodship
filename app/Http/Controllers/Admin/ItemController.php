@@ -120,7 +120,7 @@ class ItemController extends Controller
 
                 $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$request->file('image')->getClientOriginalExtension();
 
-                $request->file('image')->storeAs('/public/slider', $imageName);
+                $request->file('image')->storeAs('/public/item', $imageName);
 
                 $item->update([
                     'category_id' =>$request->input('category'),

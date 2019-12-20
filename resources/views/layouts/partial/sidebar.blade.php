@@ -29,10 +29,10 @@
               <p>Categories</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
+          <li class="nav-item {{Request::is('admin/item*')? 'active' : '' }}">
+            <a class="nav-link" href="{{route('item.index')}}">
+              <i class="material-icons">list</i>
+              <p>Item</p>
             </a>
           </li>
           <li class="nav-item ">

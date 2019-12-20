@@ -47,7 +47,7 @@
                         <tr>
                           <td>{{$key+1}}</td>
                           <td>{{$item->name}}</td>
-                          <td>{{$item->image}}</td>
+                          <td><img class="img-responsive img-responsive" src="{{asset('/storage/item/'.$item->image)}}"  style="width:100px; height:100;" alt=""></td>
                           <td>{{$item->category->name}}</td>
                           <td>{{$item->description}}</td>
                           <td>{{$item->price}}</td>

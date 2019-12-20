@@ -21,11 +21,9 @@
             @foreach($sliders as $key => $slider)
             .owl-carousel .owl-wrapper, .owl-carousel .owl-item:nth-child({{$key + 1}}) .item
             {
-                background: url("{{asset('storage/slider/'.$slider->image)}}");
                 background-size: cover;
-                background-position: bottom;
-                
-             
+                background: url("{{asset('storage/slider/'.$slider->image)}}") bottom;
+
             }
             @endforeach
         </style>
@@ -112,7 +110,7 @@
                     </div> <!-- /.header-content -->
                 </div>
             </div>
-          @endforeach  
+          @endforeach
         </section>
 
 
@@ -155,11 +153,11 @@
                                         <h2 class="pricing-title">Affordable Pricing</h2>
                                         <ul id="filter-list" class="clearfix">
                                             <li class="filter" data-filter="all">All</li>
-                                            <li class="filter" data-filter=".breakfast">Breakfast</li>
-                                            <li class="filter" data-filter=".special">Special</li>
-                                            <li class="filter" data-filter=".desert">Desert</li>
-                                            <li class="filter" data-filter=".dinner">Dinner</li>
-                                        </ul><!-- @end #filter-list -->
+                                            @foreach($categories as $key => $category)
+                                            <li class="filter" data-filter="#{{$category->slug}}">
+                                            {{$category->name}} <span class="badge">{{$category->items->count()}}</span></li>
+                                            @endforeach
+                                        </ul><!-- #filter-list -->
                                     </div>
                                 </div>
                             </div>
@@ -168,147 +166,38 @@
                 </div>
 
                 <div class="container">
-                    <div class="row">  
+                    <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <ul id="menu-pricing" class="menu-price">
-                                <li class="item dinner">
+
+                            @foreach($items as $key =>$item)
+                                <li class="item" id="{{$item->category->slug}}">
 
                                     <a href="#">
-                                        <img src="{{asset('frontend/images/food1.jpg')}}" class="img-responsive" alt="Food" >
+                                        <img src="{{asset('/storage/item/'.$item->image))}}" class="img-responsive" alt="Food" style="height:500x; width:369px;" >
                                         <div class="menu-desc text-center">
                                             <span>
-                                                <h3>Tomato Curry</h3>
-                                                Natalie &amp; Justin Cleaning by Justin Younger
+                                                <h3>{{$item->name}}</h3>
+                                                {{$item->description}}
                                             </span>
                                         </div>
                                     </a>
-                                        
-                                    <h2 class="white">$20</h2>
+
+                                    <h2 class="white">{{$item->price}}</h2>
                                 </li>
+                            @endforeach
 
-                                <li class="item breakfast">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food2.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Prawn Dish</h3>
-                                                Lorem ipsum dolor sit amet
-                                            </span>
-                                        </div>
-                                    </a>
-                                        
-                                    <h2 class="white">$20</h2>
-                                </li>
-                                <li class="item desert">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food3.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Salad Dish</h3>
-                                                Consectetur adipisicing elit, sed do eiusmod
-                                            </span>
-                                        </div>
-                                    </a>
-                                        
-                                    <h2 class="white">$18</h2>
-                                </li>
-                                <li class="item breakfast special">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food4.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Prawn Dish</h3>
-                                                Tempor incididunt ut labore et dolore
-                                            </span>
-                                        </div>
-                                    </a>
-                                        
-                                    <h2 class="white">$15</h2>
-                                </li>
-                                <li class="item breakfast">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food5.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Vegetable Dish</h3>
-                                                Magna aliqua. Ut enim ad minim veniam
-                                            </span>
-                                        </div>
-                                    </a>
-                                        
-                                    <h2 class="white">$20</h2>
-                                </li>
-                                <li class="item dinner special">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food6.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Chicken Dish</h3>
-                                                Quis nostrud exercitation ullamco laboris
-                                            </span>
-                                        </div>
-                                    </a>
-
-                                    <h2 class="white">$22</h2>
-                                </li>
-                                <li class="item desert">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food7.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Vegetable Noodles</h3>
-                                                Nisi ut aliquip ex ea commodo
-                                            </span>
-                                        </div>
-                                    </a>
-
-                                    <h2 class="white">$32</h2>
-                                </li>
-                                <li class="item dinner">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food8.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Special Salad</h3>
-                                                Duis aute irure dolor in reprehenderit
-                                            </span>
-                                        </div>
-                                    </a>
-
-                                    <h2 class="white">$38</h2>
-                                </li>
-                                <li class="item desert special">
-
-                                    <a href="#">
-                                        <img src="{{asset('frontend/images/food9.jpg')}}" class="img-responsive" alt="Food" >
-                                        <div class="menu-desc">
-                                            <span>
-                                                <h3>Ice-cream</h3>
-                                                Excepteur sint occaecat cupidatat non
-                                            </span>
-                                        </div>
-                                    </a>
-                                    
-                                    <h2 class="white">$38</h2>
-                                </li>  
                             </ul>
 
                             <!-- <div class="text-center">
                                     <a id="loadPricingContent" class="btn btn-middle hidden-sm hidden-xs">Load More <span class="caret"></span></a>
                             </div> -->
 
-                        </div>   
+                        </div>
                     </div>
                 </div>
 
-            </div> 
+            </div>
         </section>
 
 
@@ -322,7 +211,7 @@
                             <h2 class="section-title">Great Place to enjoy</h2>
                         </div>
                         <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
-                            
+
                         </div>
                     </div> <!-- /.dis-table -->
                 </div> <!-- /.row -->
@@ -369,7 +258,7 @@
                             <h2 class="section-title">Our Breakfast Menu</h2>
                         </div>
                         <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
-                            
+
                         </div>
                     </div> <!-- /.dis-table -->
                 </div> <!-- /.row -->
@@ -418,7 +307,7 @@
                             <h2 class="section-title">Our Featured Dishes Menu</h2>
                         </div>
                         <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
-                            
+
                         </div>
                     </div> <!-- /.dis-table -->
                 </div> <!-- /.row -->
@@ -735,7 +624,7 @@
                         <div class="gallery-heading hidden-xs color-bg" style="width: 50%; float:right;">
                             <h2 class="section-title">Have A Look To Our Dishes</h2>
                         </div>
-                        
+
 
                     </div> <!-- /.row -->
                 </div> <!-- /.container-fluid -->
@@ -755,7 +644,7 @@
                             <h2 class="section-title">Reserve A Table !</h2>
                         </div>
                         <div class="col-xs-6 col-sm-6 dis-table-cell section-bg">
-                            
+
                         </div>
                     </div> <!-- /.dis-table -->
                 </div> <!-- /.row -->
@@ -801,7 +690,7 @@
                                                 Make a reservation
                                             </button>
                                         </div>
-                                            
+
                                     </div>
                                 </form>
                             </div>
@@ -879,7 +768,7 @@
                     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                         <div class="row">
                              <form class="contact-form" method="post" action="contact.php">
-                                
+
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <input  name="name" type="text" class="form-control" id="name" required="required" placeholder="  Name">
@@ -923,7 +812,7 @@
             </div>
         </footer>
 
-    
+
         <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
         <script type="{{asset('frontend/text/javascript" src="js/jquery.mixitup.min.js')}}" ></script>
@@ -932,7 +821,7 @@
         <script type="text/javascript" src="{{asset('frontend/js/jquery.hoverdir.js')}}"></script>
         <script type="text/javascript" src="{{asset('frontend/js/jQuery.scrollSpeed.js')}}"></script>
         <script src="{{asset('frontend/js/script.js')}}"></script>
-        
+
 
     </body>
 </html>
