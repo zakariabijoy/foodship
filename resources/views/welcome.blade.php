@@ -16,13 +16,21 @@
         <link rel="stylesheet" href="{{asset('frontend/css/flexslider.css')}}">
         <link rel="stylesheet" href="{{asset('frontend/css/pricing.css')}}">
         <link rel="stylesheet" href="{{asset('frontend/css/main.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/bootstrap-datetimepicker.min.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+        
+        
+
+
 
         <style>
             @foreach($sliders as $key => $slider)
             .owl-carousel .owl-wrapper, .owl-carousel .owl-item:nth-child({{$key + 1}}) .item
             {
-                background-size: cover;
-                background: url("{{asset('storage/slider/'.$slider->image)}}") bottom;
+                background: url("{{asset('storage/slider/'.$slider->image)}}");
+                background-size: cover; 
+                background-position: bottom;  
 
             }
             @endforeach
@@ -40,28 +48,7 @@
             });
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js"></script>
-        <script>
-            function initialize() {
-                var mapCanvas = document.getElementById('map-canvas');
-                var mapOptions = {
-                    center: new google.maps.LatLng(24.909439, 91.833800),
-                    zoom: 16,
-                    scrollwheel: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-                var map = new google.maps.Map(mapCanvas, mapOptions)
-
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(24.909439, 91.833800),
-                    title:"Mamma's Kitchen Restaurant"
-                });
-
-                // To add the marker to the map, call setMap();
-                marker.setMap(map);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
+       
 
 
     </head>
@@ -174,7 +161,7 @@
                                 <li class="item" id="{{$item->category->slug}}">
 
                                     <a href="#">
-                                        <img src="{{asset('/storage/item/'.$item->image))}}" class="img-responsive" alt="Food" style="height:500x; width:369px;" >
+                                        <img src="{{asset('/storage/item/'.$item->image)}}" class="img-responsive" alt="Food" style="height:500x; width:369px;" >
                                         <div class="menu-desc text-center">
                                             <span>
                                                 <h3>{{$item->name}}</h3>
@@ -660,7 +647,8 @@
                     <div class=" section-content">
                         <div class="row">
                             <div class="col-md-5 col-sm-6">
-                                <form class="reservation-form" method="post" action="reserve.php">
+                                <form class="reservation-form" method="post" action="{{route('reservation.reserve')}}">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
@@ -676,7 +664,7 @@
                                                 <input type="tel" class="form-control reserve-form empty iconified" name="phone" id="phone" required="required" placeholder="  &#xf095;  Phone">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control reserve-form empty iconified" name="datepicker" id="datepicker" required="required" placeholder="&#xf017;  Time">
+                                                <input type="text" class="form-control reserve-form empty iconified" name="dateandtime" id="datetimepicker1" required="required" placeholder="&#xf017;  Time">
                                             </div>
                                         </div>
 
@@ -821,7 +809,29 @@
         <script type="text/javascript" src="{{asset('frontend/js/jquery.hoverdir.js')}}"></script>
         <script type="text/javascript" src="{{asset('frontend/js/jQuery.scrollSpeed.js')}}"></script>
         <script src="{{asset('frontend/js/script.js')}}"></script>
+        <script src="{{asset('frontend/js/bootstrap-datetimepicker.min.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                <script>
+                toastr.error('{{$error}}');
+                </script>
+            @endforch
+        @endif
+        
 
+        
+        <script type="text/javascript">
+            $("#datetimepicker1").datetimepicker({
+            format: "dd MM yyyy - HH:ii P",
+            showMeridian: true,
+            autoclose: true,
+            todayBtn: true
+         });
+        </script> 
+        
+
+        {!! Toastr::message() !!}
     </body>
 </html>
