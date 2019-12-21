@@ -817,7 +817,7 @@
                 <script>
                 toastr.error('{{$error}}');
                 </script>
-            @endforch
+            @endforeach
         @endif
         
 
