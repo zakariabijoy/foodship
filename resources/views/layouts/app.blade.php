@@ -22,6 +22,7 @@
     <link href="{{asset('backend/css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('backend//demo/demo.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @stack('css')
 </head>
 <body>
@@ -163,6 +164,7 @@
   <script src="{{asset('backend/js/material-dashboard.js?v=2.1.1')}}" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('backend/demo/demo.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -342,5 +344,7 @@
     });
   </script>
   @stack('script')
+
+    {!! Toastr::message() !!}
 </body>
 </html>

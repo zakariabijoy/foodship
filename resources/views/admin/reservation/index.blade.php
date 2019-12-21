@@ -62,9 +62,23 @@
                           <td>{{$reservation->created_at}}</td>
                           
                           <td> 
-                            <a class="btn btn-info btn-sm" href=""><i class="material-icons">mode_edit</i></a>
+                            @if($reservation->status == false)
+                            <form id="delete-form-{{$reservation->id}}" action="{{route('reservation.status',$reservation->id)}}" method="post">
+                              @csrf
+                              
+                            </form>
+                            <button type="button" class="btn btn-info btn-sm" onclick="if(confirm('Are you comnfrim this reservation by contact with customer?')){
+                              event.preventDefault();
+                              document.getElementById('delete-form-{{$reservation->id}}').
+                              submit();
+                            }else{
+                              event.preventDefault();
+                            }">
+                            
+                            <i class="material-icons">done</i></button>
+                            @endif
 
-                            <form id="delete-form-{{$reservation->id}}" action="" method="post">
+                            <form id="delete-form-{{$reservation->id}}" action="{{route('reservation.destroy', $reservation->id)}}" method="post">
                               @csrf
                               @method('delete')
                             </form>
@@ -96,6 +110,8 @@
     $(document).ready( function () {
     $('#table').DataTable();
 } );
+
   </script>
+  
 @endpush
 
