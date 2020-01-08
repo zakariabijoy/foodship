@@ -1,3 +1,19 @@
+for admin login :
+    1. url : projecturl/admin/dashboard
+    2. email: zb@live.com
+        pass:12345678
+
+        
+for adding more admin: change 
+    Auth::routes([
+        'register'=> false
+    ]); 
+    
+    to
+    Auth::routes([
+    'register'=> true
+]);
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
