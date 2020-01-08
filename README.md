@@ -2,8 +2,11 @@ for admin login :
     1. url : projecturl/admin/dashboard
     2. email: zb@live.com
         pass:12345678
+<<<<<<< HEAD
 
         
+=======
+>>>>>>> 2de382978aa9c577741006b5240409105993b2b6
 for adding more admin: change 
     Auth::routes([
         'register'=> false
